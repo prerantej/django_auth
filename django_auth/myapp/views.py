@@ -5,6 +5,14 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.urls import reverse
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.shortcuts import render
+from django.contrib.auth.models import User
 
 def login_view(request):
     if request.method == 'POST':
@@ -52,13 +60,22 @@ def forgot_password_view(request):
         user = User.objects.filter(email=email).first()
         
         if user:
-            # For simplicity, using a dummy URL here; in real applications, use a password reset link
-            reset_link = f'http://example.com/reset-password/{user.pk}'
+            # Generate token
+            token = default_token_generator.make_token(user)
+            # Generate UID
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            # Create password reset URL
+            reset_url = request.build_absolute_uri(
+                reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+            )
+            
+            # Send email
             send_mail(
                 'Password Reset Instructions',
-                f'Click the following link to reset your password: {reset_link}',
+                f'Click the following link to reset your password: {reset_url}',
                 'noreply@example.com',
-                [email]
+                [email],
+                fail_silently=False,
             )
             messages.success(request, 'Password reset instructions have been sent to your email')
         else:
