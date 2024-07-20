@@ -1,19 +1,80 @@
-<!-- myapp/templates/myapp/login.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            background-color: #f0f0f0; 
+        }
+        .container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 5px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            text-align: center; 
+        }
+        form { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
+        }
+        label { 
+            margin-bottom: 5px; 
+        }
+        input { 
+            margin-bottom: 15px; 
+            padding: 8px; 
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+        button { 
+            padding: 10px 20px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        button:hover { 
+            background-color: #0056b3; 
+        }
+        p { 
+            margin-top: 20px; 
+        }
+        a { 
+            color: #007bff; 
+            text-decoration: none; 
+        }
+        a:hover { 
+            text-decoration: underline; 
+        }
+    </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        <label for="username_email">Username/Email:</label>
-        <input type="text" id="username_email" name="username_email" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">Login</button>
-    </form>
-    <p><a href="{% url 'signup' %}">Sign Up</a> | <a href="{% url 'forgot_password' %}">Forgot Password?</a></p>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="username_email">Username/Email:</label>
+            <input type="text" id="username_email" name="username_email" required><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>
+            <a href="{% url 'signup' %}">Sign Up</a> | 
+            <a href="{% url 'forgot_password' %}">Forgot Password?</a>
+        </p>
+    </div>
 </body>
 </html>
