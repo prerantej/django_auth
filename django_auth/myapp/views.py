@@ -60,9 +60,9 @@ def forgot_password_view(request):
         user = User.objects.filter(email=email).first()
         
         if user:
-            # Generate token
+            # token
             token = default_token_generator.make_token(user)
-            # Generate UID
+            # UID
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             # Create password reset URL
             reset_url = request.build_absolute_uri(
