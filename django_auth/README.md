@@ -58,7 +58,6 @@ This project is a Django-based web application that provides user authentication
 
 ## Running the Project
 
-
 ### 1. Running the Server
 Start the development server:
 ```bash
