@@ -1,4 +1,4 @@
-# Django Authentication Project
+# Django Authentication Project for beginners
 
 ## Project Overview
 
